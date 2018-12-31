@@ -15,21 +15,22 @@ for (var i = 0; i < pacientes.length; i++) {
     var pesoEhValido = true;
 
     if (peso <= 0 || peso >= 1000) {
-        console.log("Peso inválido!");
         pesoEhValido = false;
         tdIMC.textContent = "Peso inválido!";
+        // Adiciona paciente a classe CSS paciente-invalido
+        paciente.classList.add("paciente-invalido");
     }
 
     if (altura <= 0 || altura >= 3.00) {
-        console.log("Altura inválida!");
         alturaEhValida = false;
         tdIMC.textContent = "Altura inválida!";
+        // Adiciona paciente a classe CSS paciente-invalido
+        paciente.classList.add("paciente-invalido");
     }
 
     if (pesoEhValido && alturaEhValida) {
         var imc = peso / (altura * altura);
+        // Exibe apenas duas casas decimais no IMC
         tdIMC.textContent = imc.toFixed(2);
-    } else {
-        tdIMC.textContent = "Altura e/ou peso inválidos!";
     }
 }
