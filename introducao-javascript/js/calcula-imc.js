@@ -29,8 +29,15 @@ for (var i = 0; i < pacientes.length; i++) {
     }
 
     if (pesoEhValido && alturaEhValida) {
-        var imc = peso / (altura * altura);
+        var imc = calculaImc(peso, altura);
         // Exibe apenas duas casas decimais no IMC
-        tdIMC.textContent = imc.toFixed(2);
+        tdIMC.textContent = imc;
+    }
+
+    function calculaImc(peso, altura) {
+        var imc = 0;
+
+        imc = peso / (altura * altura);
+        return imc.toFixed(2);
     }
 }

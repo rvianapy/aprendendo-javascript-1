@@ -28,12 +28,14 @@ botaoAdicionar.addEventListener("click", function(event) {
     pesoTd.textContent = peso;
     alturaTd.textContent = altura;
     gorduraTd.textContent = gordura;
+    imcTd.textContent = calculaImc(peso, altura);
 
     // Adiciona as tags <td> dentro da tag <tr>
     pacienteTr.appendChild(nomeTd);
     pacienteTr.appendChild(pesoTd);
     pacienteTr.appendChild(alturaTd);
     pacienteTr.appendChild(gorduraTd);
+    pacienteTr.appendChild(imcTd);
 
     // Seleciona a tabela no código HTML
     var tabela = document.querySelector("#tabela-pacientes");
