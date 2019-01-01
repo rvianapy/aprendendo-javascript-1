@@ -1,45 +1,52 @@
 var botaoAdicionar = document.querySelector("#adicionar-paciente");
+
 botaoAdicionar.addEventListener("click", function(event) {
     event.preventDefault();
 
     // Seleciona o formulário no codigo HTML
     var form = document.querySelector("#form-adiciona");
-
-    // Seleciona os valores digitados em cada campo do formulário,
-    // identificados pelo atributo 'for', e atribui às variaveis
-    // respectivas
-    var nome = form.nome.value;
-    var peso = form.peso.value;
-    var altura = form.altura.value;
-    var gordura = form.gordura.value;
-
-    // Cria a tag <tr> para receber os valores digitados no formulário
-    var pacienteTr = document.createElement("tr");
-
-    // Cria as tags <td>
-    var nomeTd = document.createElement("td");
-    var pesoTd = document.createElement("td");
-    var alturaTd = document.createElement("td");
-    var gorduraTd = document.createElement("td");
-    var imcTd = document.createElement("td");
-
-    // Adiciona os dados do formulário nas tags <td> criadas
-    nomeTd.textContent = nome;
-    pesoTd.textContent = peso;
-    alturaTd.textContent = altura;
-    gorduraTd.textContent = gordura;
-    imcTd.textContent = calculaImc(peso, altura);
-
-    // Adiciona as tags <td> dentro da tag <tr>
-    pacienteTr.appendChild(nomeTd);
-    pacienteTr.appendChild(pesoTd);
-    pacienteTr.appendChild(alturaTd);
-    pacienteTr.appendChild(gorduraTd);
-    pacienteTr.appendChild(imcTd);
+    var paciente = obtemPacienteDoFormulario(form);
+    var pacienteTr = montaTr(paciente);
 
     // Seleciona a tabela no código HTML
     var tabela = document.querySelector("#tabela-pacientes");
 
     // Adiciona a <tr> à tabela de pacientes
     tabela.appendChild(pacienteTr);
+    form.reset();
 });
+
+function obtemPacienteDoFormulario(form) {
+
+    var paciente = {
+        nome: form.nome.value,
+        peso:  form.peso.value,
+        altura:  form.altura.value,
+        gordura: form.gordura.value,
+        imc: calculaImc(form.peso.value, form.altura.value)
+    }
+
+    return paciente;
+}
+
+function montaTr(paciente) {
+    var pacienteTr = document.createElement("tr");
+    pacienteTr.classList.add("paciente");
+
+    pacienteTr.appendChild(montaTd(paciente.nome, "info-nome"));
+    pacienteTr.appendChild(montaTd(paciente.peso, "info-peso"));
+    pacienteTr.appendChild(montaTd(paciente.altura, "info-altura"));
+    pacienteTr.appendChild(montaTd(paciente.gordura, "info-gordura"));
+    pacienteTr.appendChild(montaTd(paciente.imc, "info-imc"));
+
+    return pacienteTr;
+}
+
+function montaTd(dado, classe) {
+    var td = document.createElement("td");
+
+    td.textContent = dado;
+    td.classList.add(classe);
+
+    return td;
+}
